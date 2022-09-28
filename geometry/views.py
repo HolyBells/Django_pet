@@ -1,37 +1,32 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 
 
 # Create your views here.
 
 def get_rectangle_area(request, width: int, height: int):
-    if width >= 1 and height >= 1:
-        return HttpResponse(f'Площадь прямоугльника размером {width}х{height} равна {width * height}')
-    else:
-        return HttpResponseNotFound(f'Ты ваще в курсе что стороны должны быть больше единицы?')
+    return HttpResponse(f'Rectangle with sides {width} x {height} has area {width * height}')
+
+
+def get_rectangle_area_redirect(request, width: int, height: int):
+    reverse_url = reverse('rectangle_url', args=[width, height])
+    return HttpResponseRedirect(reverse_url)
 
 
 def get_square_area(request, side: int):
-    if side >= 1:
-        return HttpResponse(f'Площадь квадрата со сторонами {side}х{side} равна {side * side}')
-    else:
-        return HttpResponseNotFound(f'Ты ваще в курсе что стороны должны быть больше единицы?')
+    return HttpResponse(f'Square with sides {side} has area {side * side}')
+
+
+def get_square_area_redirect(request, width: int):
+    reverse_url = reverse('square_url', args=[width])
+    return HttpResponseRedirect(reverse_url)
 
 
 def get_circle_area(request, radius: int):
-    if radius >= 1:
-        return HttpResponse(f'Площадь круга с радиусом {radius} равна {3.14 * radius ** 2}')
-    else:
-        return HttpResponseNotFound(f'Ты ваще в курсе что радиус должен быть больше единицы?')
+    return HttpResponse(f'Circle with radius {radius} has area {radius ** 2 * 3.14}')
 
 
-
-
-
-
-
-
-
-
-
-
+def get_circle_area_redirect(request, radius: int):
+    reverse_url = reverse('circle_url', args=[radius])
+    return HttpResponseRedirect(reverse_url)

@@ -38,5 +38,5 @@ def get_info_about_sign_zodiac_number(request, sign_zodiac: int):
     if int(sign_zodiac) > len(sign_zodiac_dict):
         return HttpResponseNotFound(f'Елки палки, ВСЕГО 12 ЗНАКОВ, а не {sign_zodiac}')
     name_zodiac = sign_zodiac_dict[sign_zodiac - 1]
-    redirect_url = reverse('horoscope-name', args=(name_zodiac, ))
+    redirect_url = reverse('horoscope-name', args=[name_zodiac])
     return HttpResponseRedirect(redirect_url)
