@@ -19,18 +19,47 @@ zodiac_dict = {
     'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).',
 }
 
+zodiac_element = {
+    'fire': ['aries', 'leo', 'sagittarius'],
+    'earth': ['taurus', 'virgo', 'capricorn'],
+    'air': ['gemini', 'libra', 'aquarius'],
+    'water': ['cancer', 'scorpio', 'pisces']
+}
+
+
 def index(request):
     zodiacs = list(zodiac_dict)
-    response = '<br>'.join(zodiacs)
+    rez = ''
+    for sign in zodiacs:
+        redirect_url = reverse('horoscope-name', args=[sign])
+        rez += f'<li> <a href="{redirect_url}"> {sign.title()} </a> </li>'
+    response = f'<h1><ol>{rez}</ol></h1>'
+    return HttpResponse(response)
+
+
+def types(request):
+    elements = list(zodiac_element)
+    rez = ''
+    for sign in elements:
+        redirect_url = reverse('horoscope_elements', args=[sign])
+        rez += f'<li><a href="{redirect_url}">{sign.title()}</a></li>'
+    response = f'<h1><ol>{rez}</ol></h1>'
+    return HttpResponse(response)
+
+
+def element(request, elements):
+    rez = ''
+    for sign in zodiac_element[elements]:
+        redirect_url = reverse('horoscope-name', args=[sign])
+        rez += f'<li><a href="{redirect_url}">{sign.title()}</a></li>'
+    response = f'<h1><ol>{rez}</ol></h1>'
     return HttpResponse(response)
 
 
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
-    description = zodiac_dict.get(sign_zodiac, None)
-    if description:
-        return HttpResponse(f'<h1>{description}</h1>')
-    else:
-        return HttpResponseNotFound(f'Нет такого - {sign_zodiac}')
+    description = zodiac_dict.get(sign_zodiac)
+    data = {'name': description}
+    return render(request, 'horoscope/info_zodiac.html', data)
 
 
 def get_info_about_sign_zodiac_number(request, sign_zodiac: int):

@@ -24,9 +24,4 @@ def get_days_info(request, todo_list):
 
 
 def get_days_info_number(request, todo_list: int):
-    todo_list_number_dict = list(todo_list_dict)
-    if int(todo_list) > 7:
-        return HttpResponseNotFound(f'Что-то ты перепутал братишка, дня недели под номером {todo_list} не существует')
-    day_name = todo_list_number_dict[todo_list - 1]
-    redirect_url = reverse('days-name', args=(day_name, ))
-    return HttpResponseRedirect(redirect_url)
+    return render(request, 'week_days/greeting.html')
