@@ -6,6 +6,10 @@
 </head>
 <body>
     <h1> Приложение Гороскоп </h1>
-    <h2> {{ name }} </h2>
+    {% if name == none %}
+    <p>Нет такого знака зодиака {{ wrong }}</p>
+    {% else %}
+    <p>{{ name| title }}</p>
+    {% endif %}
 </body>
 </html>

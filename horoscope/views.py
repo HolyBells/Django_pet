@@ -58,7 +58,8 @@ def element(request, elements):
 
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
-    data = {'name': description}
+    data = {'name': description,
+            'wrong': sign_zodiac}
     return render(request, 'horoscope/info_zodiac.html', data)
 
 
