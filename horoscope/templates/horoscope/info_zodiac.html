@@ -7,9 +7,9 @@
 <body>
     <h1> Приложение Гороскоп </h1>
     {% if name == none %}
-    <p>Нет такого знака зодиака {{ wrong }}</p>
+        <p>Нет такого знака зодиака {{ wrong| title }}</p>
     {% else %}
-    <p>{{ name| title }}</p>
+        <p>{{ name| title }}</p>
     {% endif %}
 </body>
 </html>
